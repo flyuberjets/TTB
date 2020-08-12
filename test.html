@@ -1,0 +1,173 @@
+<!DOCTYPE html5>
+<html>
+<head>
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+<link rel="stylesheet" href="https://web.flyuberjets.com/static/js/jquery-ui-1.12.1/jquery-ui.css"/>
+
+
+
+</head>
+<body>
+<div align="left" style="margin: 20px">
+<form>
+<br/><br/>
+From: <input type="text" name="dep" id="dep" placeholder="Departure Airport" size="50"/><br/><br/>
+To: <input type="text" name="arr" id="arr" placeholder="Arrival Airport" size="50"/><br/><br/>
+Pax: <input type="text" id="pax" name="pax" placeholder="Pax" value="1"/><br/><br/>
+
+Date: <input type="date" id="date_time" name="date_time" placeholder="Date"/><br/><br/>
+Round Trip? <input type="checkbox" id="round_trip" name="round_trip"/> <br/><br/>
+
+Return Date: <input type="date" id="ret_date_time" name="ret_date_time" placeholder="Return Date"/><br/><br/>
+
+Email: <input type="text" id="email" name="email" placeholder="Email" value="christie@thebreen.net"/><br/><br/>
+First Name: <input type="text" id="first_name" name="first_name" placeholder="First Name" value="Christie"/><br/><br/>
+Last Name: <input type="text" id="last_name" name="last_name" placeholder="Last Name" value="Breen"/><br/><br/>
+
+<input type="hidden" id="dep_code" name="dep_code"/>
+<input type="hidden" id="arr_code" name="arr_code"/>
+
+<input type="button" name="submit" value="Inquire" id="submit"/>
+</form>
+Options:
+<div id="options" style="background-color: #FFFFFF; ">
+</div>
+Debug<br/>
+Sent To API:
+<div id="msg" style="background-color: #FFFFFF;">
+</div>
+
+Response from API:
+<div id="resp" style="background-color: #FFFFFF; ">
+</div>
+<script src="https://web.flyuberjets.com/static/js/jquery-3.4.1.min.js"></script>
+<script src="https://web.flyuberjets.com/static/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script> 
+
+<script>
+var formatter = new Intl.NumberFormat('en-US', {
+	  style: 'currency',
+	  currency: 'USD',
+	});
+
+	
+$(function() {
+	auto_source='https://web.flyuberjets.com/ajax/autocomplete/airports';
+    $("#dep").autocomplete({
+      source: auto_source,
+      minLength: 2,
+      select: function(event, ui) {
+          event.preventDefault();
+    	  $('#dep').val(ui.item.label);
+    	  $('#dep_code').val(ui.item.value);
+      },
+      focus: function(event, ui) {
+          event.preventDefault();
+    	  $('#dep').val(ui.item.label);
+    	  $('#dep_code').val(ui.item.value);
+
+      },
+      change: function(event, ui) {
+    	 if (ui.item==null) {
+	    	  $('#dep').val('');
+	    	  $('#dep_code').val('');
+	    	  $( "#dep" ).focus();
+
+    	 
+    	 }
+      }
+      
+    });
+    $("#arr").autocomplete({
+        source: auto_source,
+        minLength: 2,
+        select: function(event, ui) {
+            event.preventDefault();
+      	  $('#arr').val(ui.item.label);
+      	  $('#arr_code').val(ui.item.value);
+        },
+        focus: function(event, ui) {
+            event.preventDefault();
+      	  $('#arr').val(ui.item.label);
+      	  $('#arr_code').val(ui.item.value);
+
+        },
+        change: function(event, ui) {
+      	 if (ui.item==null) {
+  	    	  $('#arr').val('');
+  	    	  $('#arr_code').val('');
+  	    	  $( "#arr" ).focus();
+
+      	 
+      	 }
+        }
+      });
+    $("#submit").click(function() { 
+    	
+    		url='https://web.flyuberjets.com/api/flight_cost';
+    		//url='/test.json';
+			data={};
+			data['email']=$("#email").val();
+			data['first_name']=$("#first_name").val();
+			data['last_name']=$("#last_name").val();
+			data['pax']=$("#pax").val();
+			legs=[];
+			if( $("#dep_code").val() != '' && $("#arr_code").val()) {
+				leg={}
+				leg['departure_airport']=$("#dep_code").val();
+				leg['arrival_airport']=$("#arr_code").val();
+				leg['date_time']=$("#date_time").val();
+				legs.push(leg);
+				if($("#round_trip").is(":checked")) {
+					
+					leg2={}
+					leg2['departure_airport']=$("#arr_code").val();
+					leg2['arrival_airport']=$("#dep_code").val();
+					leg2['date_time']=$("#ret_date_time").val();
+					legs.push(leg2);
+					
+				}
+				
+			}
+			data['legs']=legs;
+			$("#msg").text(url+JSON.stringify(data));
+			fetch(url, {
+			   headers: {
+				      'Accept': 'application/json',
+				      'Content-Type': 'application/json'
+				    },
+				    method: "POST",
+			    	body: JSON.stringify(data)
+			  }).then(function(resp) {
+				
+			    return resp.json();
+			  }).then(function(data) {
+				    $("#resp").text(JSON.stringify(data));
+				    txt='';
+				    //txt=JSON.stringify(data);
+				    opts=data['options'];
+				    for (i = 0; i < opts.length; i++) { 
+				    	  var opt= opts[i];
+				    	  txt=txt+'<br/><div style="padding: 5px; border: 1px solid #444444;">Category:'+opt["category"]+'<br/>Cost: '+formatter.format(opt["cost"])+'<br/>Distance: '+Math.round(opt['legs'][0]['distance'])+' miles<br/>Time in Air:';
+				    	  for (j=0; j < opt['legs'].length; j++) {
+				    		  leg=opt['legs'][j];
+				    		  txt=txt+'<br/>'+leg['departure_airport']+'-'+leg['arrival_airport']+': '+leg["time_in_air"]+' + '+leg['stops']+' stops';
+				    	  }
+				    	  txt=txt+ '</div>';
+				    	  
+
+				    }
+					$("#options").html(txt);
+			  });
+    	
+	  }); 
+ 
+});
+
+
+</script>
+</body>
+</html>

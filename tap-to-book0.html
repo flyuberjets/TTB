@@ -1,0 +1,1503 @@
+<!DOCTYPE html5>
+<html>
+<head>
+
+<link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="js/jquery-ui-1.12.1/jquery-ui0.css">
+<link href="https://fonts.googleapis.com/css?family=Lato&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/clients.css">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap" rel="stylesheet">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+<style>
+        .nextarrow {
+                position: relative;
+                top: 30%;
+        }
+        .prevarrow {
+                position: relative;
+                top: 30%;
+        }
+
+        #pax {
+        text-align: center;
+        padding: 0;
+        margin: 0;
+        position: relative;
+        top: 1.8rem;
+        }
+
+        #minus {
+                padding-left: 3px;
+        }
+        .mp {
+        background-color: #181F3D;
+        margin-bottom: 20px;
+        margin-top: 20px;
+        font-weight: bold;
+        font-size: 18px;
+        cursor: pointer;
+        color: #FFFFFF;
+        border-radius: 30px;
+        width: 23px;
+        text-align:center;
+        }
+    .trip_type {
+        /* background-color: #AAAAAA; */
+        opacity: 0.75;
+        color: #181F3D;
+                display: grid;
+                grid-template-columns: 1fr 1fr 1fr;
+                padding: 3px;
+                width: 60%;
+                position: relative;
+                right: 2.4rem;
+                top: 2.5rem;
+                z-index: 1;
+    }
+    .trip_type_active {
+        /* background-color: #FFFFFF; */
+        color: #181F3D;
+        /* border: 1px solid #AAAAAA; */
+                /* border-radius: 8px; */
+                padding: 1px;
+    }
+                .grid_one {
+                        margin-left: 4rem;
+                }
+                .grid_round {
+                        margin-left: 1.5rem;
+                }
+                .grid_multi {
+                        margin-right: 5.2rem;
+                }
+
+body {
+    font-family: Lato, Oswald, Helvetica Neue, Arial
+}
+#ret_date, #leg1_date, #leg2_date,  #pax,#leg3_date,#leg4_date {
+width: 95%;
+ }
+#leg1_arrival_airport, #leg1_departure_airport, #ret_date, #leg1_date, #leg2_date, #leg1_time, #pax, #leg2_time,#leg3_date, #leg3_time,
+#leg2_arrival_airport, #leg2_departure_airport, #leg3_arrival_airport, #leg3_departure_airport,
+#leg4_arrival_airport, #leg4_departure_airport, #leg4_date, #name, #email
+ {
+font-size: 12px;
+
+}
+#leg1_arrival_airport, #leg1_departure_airport,
+#leg2_arrival_airport, #leg2_departure_airport, #leg3_arrival_airport, #leg3_departure_airport,
+#leg4_arrival_airport, #leg4_departure_airport, #name, #email
+ {
+width: 95%;
+}
+        .blurred {
+                //position: absolute;
+                x:0;
+                y:0;
+                        /*filter: blur(4px);
+                        -webkit-filter: blur(4px);
+                         background-position: center;*/
+                         background-repeat: no-repeat;
+                         background-size: cover;
+                         object-fit: contain;
+                         height: 150px;
+                         width: 100%;
+
+                }
+
+                .citygrid {
+                        width: 100%;
+                        height: 160px;
+                        display: grid;
+                        grid-template-columns: 1fr 40px 1fr;
+
+                }
+                .maingrid {
+                        width: 100%;
+                        display: grid;
+                        grid-template-columns: 20px 1fr 5px 1fr 20px;
+                        background-color: #f6f6f6;
+                        border-radius: .5rem;
+                        position: relative;
+                        bottom: 9;
+                        height: 178;
+                }
+
+                .city_image {
+                     height: 120px;
+                     width: 120px;
+                     border-radius: 60px;
+                     border: 4px solid #CCCCCC;
+                     object-fit: cover;
+                     margin: auto;
+                     margin-top: 20px;
+                }
+
+
+                .searchform {
+                position: relative;
+                x:0;
+                y:500;
+                                width: 100%;
+
+
+                }
+.aircraft_image {
+     height: 150px;
+     width: 200px;
+     border-radius: 10px;
+     object-fit: contain;
+}
+.planegrid {
+        display: grid;
+        grid-template-columns: 15px 1fr 15px;
+
+}
+
+.optiongrid {
+        //max-width: 800px;
+        opacity: 0.9;
+        background-color: #FFFFFF;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 2px;
+
+        border: 1px solid #10174F;
+        border-radius: 2px;
+        margin: 5px;
+}
+
+.select_container {
+  //margin-left: -5px;
+  border: 1px solid #10174F;
+  border-radius: 2px;
+  color: #10174F;
+  vertical-align: bottom;
+  margin-top: 15px;
+  background-color: #FFFFFF;
+  height: 30px;
+
+
+}
+.select_container select {
+  /*border: 1px solid #10174F;
+  border-radius: 2px;
+  color: #10174F;
+  vertical-align: bottom;
+  margin-top: 15px;
+  background-color: #FFFFFF;
+  height: 30px;*/
+  border: none;
+  outline: 0;
+  color: #101750;
+  vertical-align: bottom;
+  margin-top: 15px;
+
+}
+.select_container label {
+
+  color: #888888;
+  font-weight: bold;
+  font-size: 10px;
+  position:absolute;
+}
+
+.float_container {
+  background-color: #FFFFFF;
+  margin: 1px;
+  border: 1px solid #10174F;
+  border-radius: 3px;
+  border-color: #d3d3d3;
+  width: 370.05px;
+        position: relative;
+  right: 7px;
+        top: 2.6rem;
+
+}
+.float_container input {
+  border: none;
+  outline: 0;
+  color: #10174F;
+  vertical-align: bottom;
+        padding-top: 1.8rem;
+}
+.float_container label {
+  color: #888888;
+  font-weight: bold;
+  font-size: .75rem;
+  position:absolute;
+  padding: 5px;
+        padding-left: 1rem;
+        letter-spacing: .3px;
+}
+.depart_container {
+  width: 247.91px;
+}
+.return_container {
+  width: 246.9px;
+}
+.passenger_container {
+  width: 244.2px !important;
+  height: 58px;
+
+}
+.second_column {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  width: 744px;
+  height: 68px;
+}
+.to_container {
+  position: relative;
+  right: 24rem;
+}
+/*.depdate {
+  width: 160px;
+}*/
+
+.radio {
+display: inline-block;
+margin-right: 10px;
+}
+.leggrid {
+max-width: 95%;
+width: 400px;
+margin: auto;
+display: grid;
+grid-template-columns: 1fr 30px 1fr;
+grid-gap: 2px;
+
+}
+.arrows {
+        position: relative;
+        top:50px;
+        left: -5px;
+
+}
+
+
+.error {
+font-size: 10px;
+color: red;
+weight: bold;
+}
+.request_flight {
+
+        border-radius: .75rem;
+    background-color: rgba(179,211,75,1);
+    color: #FFFFFF;
+    /* white-space: normal; */
+          /* word-wrap: break-word; */
+          margin-top: 20px;
+          min-width: 10rem; 
+          min-height: 55px;
+          font-size: .94rem; 
+          font-weight: 700;
+                padding-top: .8rem;
+                padding-bottom: .8rem;
+                transition: .4s;
+                transition-timing-function: ease-in-out;
+                position: relative;
+                left: 20rem;
+                top: 3.4rem;
+            }
+}
+.request_flight:hover {background-color: #10174F; }
+.hidden {
+display: none;
+visibility: hidden;
+}
+
+.city_input {
+border-radius: 5px;
+border: 1px solid #10174F;
+width: 95%;
+margin: auto;
+display: block;
+}
+
+@media (max-width: 768px) {
+        .float_container {
+                width: 330px;
+                position: relative;
+                left: .4rem;
+                margin-right: 0;
+        }
+        .request_flight {
+                position: relative;
+                margin-left: 18px;
+        }
+        .trip_type {
+                width: 450px;
+                margin-left: 14px;
+        }
+        .grid_multi {
+                margin-right: 4rem;
+        }
+        }
+
+        @media (max-width: 375px) {
+                .float_container {
+                        width: 141.34px;
+                        position: relative;
+                        left: .4rem;
+                        margin-right: 0;
+                }
+                .request_flight {
+                        position: relative;
+                        right: 8px;
+                        bottom: 10px;
+                        min-width: 140;
+                }
+                .trip_type {
+                        width: 400px;
+                        margin-left: 10px;
+                        font-size: 15px;
+                }
+                .grid_multi {
+                        margin-right: 4rem;
+                }
+                .grid_round {
+                        margin-left: 0;
+                        width: 84px;
+                }
+                .grid_multi {
+                        position: relative;
+                        right: 12px;
+                }
+                .grid_round {
+                        position: relative;
+                        left: 14px;
+                }
+                }
+
+                .header {
+                   color: rgba(179,211,75,1);
+                   text-align: center;
+                   font-family: 'Oswald', sans-serif;
+                   font-size: 35px;
+
+                }
+
+</style>
+</head>
+
+
+
+<body>
+<!-- <div class="trip_type">
+    <div id="tt0" class="trip_type_active" style="text-align: center">
+          <a id="trip_type-0" >One-way</a>
+    </div>
+    <div id="tt1" style="text-align: center">
+          <a id="trip_type-1" >Round Trip</a>
+      </div>
+    <div id="tt2" style="text-align: center">
+          <a id="trip_type-2" >Multi-Leg</a>
+     </div> -->
+
+<div class="container-fluid" style="max-width: 800px; min-height: 100%; width: 100%; background-image: url('images/new_bg2.png');background-size: cover;background-repeat: no-repeat; background-color: #fff8ff;">
+  <div class="row">
+    <div class=" col error" align="Center">
+    </div>
+  </div>
+  <form id="fr_form" autocomplete="off">
+    <input class="form-control" id="leg1_departure_code" name="leg1_departure_code" type="hidden" value="">
+    <input class="form-control" id="leg2_departure_code" name="leg2_departure_code" type="hidden" value="">
+    <input class="form-control" id="leg3_departure_code" name="leg3_departure_code" type="hidden" value="">
+    <input class="form-control" id="leg4_departure_code" name="leg4_departure_code" type="hidden" value="">
+
+    <input class="form-control" id="leg1_arrival_code" name="leg1_arrival_code" type="hidden" value="">
+    <input class="form-control" id="leg2_arrival_code" name="leg2_arrival_code" type="hidden" value="">
+    <input class="form-control" id="leg3_arrival_code" name="leg3_arrival_code" type="hidden" value="">
+    <input class="form-control" id="leg4_arrival_code" name="leg4_arrival_code" type="hidden" value="">
+
+    <div class="citygrid">
+      <div align="center">
+        <div class="city_div"><img id="dep1_img" class="city_image hidden" /></div>
+        <div id="dep1_name" class="city_name hidden"></div>
+      </div>
+      <div align="center">
+        <div class="arrows hidden" id="arrowto">
+          <img style="height: 40px; width: 40px;" src="https://web.flyuberjets.com/static/images/airplane_itinerary.png" />
+        </div>
+        <div class="arrows hidden" id="arrowfrom">
+          <img style="height: 40px; width: 40px;" src="https://web.flyuberjets.com/static/images/airplane_itinerary_rev.png" />
+        </div>
+      </div>
+      <div align="center">
+        <div class="city_div"><img id="arr1_img" class="city_image hidden" /></div>
+        <div id="arr1_name" class="city_name hidden"></div>
+      </div>
+    </div>
+
+      <h2 class="header">Where to Next?</h2>
+    <div class="trip_type">
+      <div id="tt0" class="trip_type_active grid_one">
+        <a style="cursor: pointer;" id="trip_type-0">One-way</a>
+      </div>
+      <div id="tt1" class="grid_round">
+        <a style="cursor: pointer;" id="trip_type-1">Round Trip</a>
+      </div>
+       <div id="tt2" class="grid_multi">
+        <!--  <a style="cursor: pointer;" id="trip_type-2">Multi-Leg</a> -->
+      </div>
+    </div>
+    <div class="maingrid">
+      <div>
+        <div id="leg1label" class="leglabel hidden">1</div>
+      </div>
+      <div align="left">
+        <div class="float_container">
+          <label class="from_label" for="leg1_departure_airport">From</label>
+          <input type="text" style="padding-left: 16px; font-size: 18px;" autocomplete="off" id="leg1_departure_airport" name="leg1_departure_airport" value="" />
+        </div>
+      </div>
+      <div></div>
+      <div align="left">
+        <div class="float_container to_container">
+          <label class="to_label" for="leg1_departure_airport">To</label>
+          <input type="text" style="padding-left: 16px; font-size: 18px;" autocomplete="off" id="leg1_arrival_airport" name="leg1_arrival_airport" value="" />
+        </div>
+      </div>
+      <div></div>
+      <div></div>
+      <div class="second_column">
+        <div align="left">
+          <div class="float_container depart_container">
+            <div id="date1_error" class="error" style="display:none">Select a Departure Date</div>
+            <label style="width: 290.06px;" class="depart_label" for="leg1_date">Depart date:</label>
+            <input style="padding-left: 16px; font-size: 18px;" id="leg1_date" name="leg1_date" required type="text">
+          </div>
+        </div>
+        <!-- <div></div> -->
+        <div align="left">
+          <div class="float_container hidden return_container" id="retdate">
+            <div id="ret_error" class="error" style="display:none">Select a Departure Date</div>
+            <label class="return_label" for="ret_date">Return</label>
+            <input style="padding-left: 16px; font-size: 18px;" id="ret_date" name="ret_date" type="text" />
+          </div>
+        </div>
+        <div class="float_container passenger_container" style="width: 100px;">
+          <label for="pax">Passengers</label>
+          <div style="margin-top: 2px; display: grid; grid-template-columns: 20px 1fr 20px;">
+            <div class="mp" id="minus">&nbsp;-&nbsp;</div>
+            <div><input style="font-size: 16px;" id="pax" name="pax" type="text" value="1" /></div>
+            <div class="mp" id="plus">&nbsp;+&nbsp;</div>
+          </div>
+        </div>
+      </div>
+      <div></div>
+      <div>
+        <div class="leglabel hidden" id="leg2label">2</div>
+      </div>
+      <div align="left" class="">
+        <div class="float_container hidden" id="leg2_dep">
+          <label for="leg2_departure_airport">From</label>
+          <input style="padding-left: 16px; font-size: 18px;" type="text" autocomplete="off" id="leg2_departure_airport" name="leg2_departure_airport" value="" />
+        </div>
+      </div>
+      <div></div>
+
+      <div align="left" class="">
+        <div class="float_container hidden" id="leg2_arr">
+          <label for="leg2_departure_airport">To</label>
+          <input style="padding-left: 16px; font-size: 18px;" type="text" autocomplete="off" id="leg2_arrival_airport" name="leg2_arrival_airport" value="" />
+        </div>
+      </div>
+      <div></div>
+      <div></div>
+
+      <div align="left">
+        <div class="float_container hidden" id="leg2_dt">
+          <label for="leg2_date">Depart Date:</label>
+          <input style="padding-left: 16px; font-size: 18px;" id="leg2_date" name="leg2_datex" type="text" />
+        </div>
+      </div>
+      <div></div>
+      <div></div>
+
+      <div></div>
+      <div>
+        <div class="leglabel hidden" id="leg3label">3</div>
+      </div>
+      <div align="left" class="">
+        <div class="float_container hidden" id="leg3_dep">
+          <label for="leg3_departure_airport">From</label>
+          <input style="padding-left: 16px; font-size: 18px;" type="text" autocomplete="off" id="leg3_departure_airport" name="leg3_departure_airport" value="" />
+        </div>
+      </div>
+      <div></div>
+
+      <div align="left" class="">
+        <div class="float_container hidden" id="leg3_arr">
+          <label for="leg3_departure_airport">To</label>
+          <input style="padding-left: 16px; font-size: 18px;" type="text" autocomplete="off" id="leg3_arrival_airport" name="leg3_arrival_airport" value="" />
+        </div>
+      </div>
+      <div></div>
+      <div></div>
+
+      <div align="left">
+        <div class="float_container hidden" id="leg3_dt">
+          <div id="date3_error" class="error" style="display:none">Select a Departure Date</div>
+          <label for="leg3_date">Depart Date:</label>
+          <input style="padding-left: 16px; font-size: 18px;" id="leg3_date" name="leg3_date" type="text" />
+        </div>
+      </div>
+      <div></div>
+      <div></div>
+
+
+      <div></div>
+      <div>
+        <div class="leglabel hidden" id="leg4label">4</div>
+      </div>
+      <div align="left" class="">
+        <div class="float_container hidden" id="leg4_dep">
+          <label for="leg4_departure_airport">From</label>
+          <input style="padding-left: 16px; font-size: 18px;" type="text" autocomplete="off" id="leg4_departure_airport" name="leg4_departure_airport" value="" />
+        </div>
+      </div>
+      <div></div>
+
+      <div align="left" class="">
+        <div class="float_container hidden" id="leg4_arr">
+          <label for="leg4_departure_airport">To</label>
+          <input style="padding-left: 16px; font-size: 18px;" type="text" autocomplete="off" id="leg4_arrival_airport" name="leg4_arrival_airport" value="" />
+        </div>
+      </div>
+      <div></div>
+      <div></div>
+
+      <div align="left">
+        <div class="float_container hidden" id="leg4_dt">
+          <div id="date4_error" class="error" style="display:none">Select a Departure Date</div>
+          <label for="leg4_date">Depart Date:</label>
+          <input style="padding-left: 16px; font-size: 18px;" id="leg4_date" name="leg4_date" type="text">
+        </div>
+      </div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div>
+        <!-- <div class="float_container passenger_container" style="width: 100px;">
+                    <label for="pax">Passengers</label>
+                    <div style="margin-top: 2px; display: grid; grid-template-columns: 20px 1fr 20px;">
+                                <div class="mp" id="minus">&nbsp;-&nbsp;</div>
+                                <div ><input style="font-size: 16px;" id="pax" name="pax"  type="text" value="1" /></div>
+                                <div class="mp" id="plus">&nbsp;+&nbsp;</div>
+                        </div>
+                </div> -->
+      </div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div>
+        <div class="float_container">
+                <label for="name">Name</label>
+            <input style="padding-left: 16px; font-size: 18px;" id="name" name="first_name" required type="text"/>
+            </div>
+        </div>
+        <div></div>
+
+        <div>
+          <div class="float_container">
+            <label for="email">Email</label>
+            <input style="padding-left: 16px; font-size: 18px;" id="email" name="email" required type="text"/>
+            </div>
+        </div>
+        <div></div>
+      </div>
+      <div align="center">
+        <input class="request_flight" type="button" name="search" id="go" value="Search" />
+        <br /><br />
+
+      </div>
+  </form>
+  <div class="row">
+    <div id="turbo" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden">
+      <div class="optiongrid">
+        <div class="planegrid">
+          <div class="prevarrow" id="prev_turbo">&lt;</div>
+
+          <div>
+            <img class="aircraft_image" id="turbo_0" src="https://web.flyuberjets.com/static/images/turboprop_exterior.png" />
+            <img class="aircraft_image hidden" id="turbo_1" src="https://web.flyuberjets.com/static/images/turboprop_interior.jpg" />
+          </div>
+          <div class="nextarrow" id="next_turbo">&gt;</div>
+        </div>
+        <div class="price">
+          <table class="pricetable">
+            <tr>
+              <td colspan="2"><span id="turbo_legs">KBOS-KRIC</span></td>
+            </tr>
+
+            <tr>
+              <td>Charter Price</td>
+              <td><span id="turbo_subtotal">$16,000.00</span></td>
+            </tr>
+            <tr>
+              <td>FET (7.5%)</td>
+              <td><span id="turbo_tax">$1,000.00</span></td>
+            </tr>
+            <tr>
+              <td>Total Price</td>
+              <td><span id="turbo_total">$17,000.00</span></td>
+            </tr>
+
+          </table>
+        </div>
+        <div></div>
+        <div class="aircraft">
+          <b>TURBO PROP</b><br />
+          King Air 350i or similar (Seats 8)<br />
+        </div>
+        <div></div>
+        <div align="center">
+          <input class="request_flight" type="button" value="Book Now" />
+        </div>
+      </div>
+    </div>
+
+    <div id="vlj" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden">
+      <div class="optiongrid">
+        <div class="planegrid">
+          <div class="prevarrow" id="prev_vlj">&lt;</div>
+
+          <div>
+            <img class="aircraft_image" id="vlj_0" src="https://web.flyuberjets.com/static/images/vlj_exterior.png" />
+            <img class="aircraft_image hidden" id="vlj_1" src="https://web.flyuberjets.com/static/images/vlj_interior.jpg" />
+          </div>
+          <div class="nextarrow" id="next_vlj">&gt;</div>
+        </div>
+        <div class="price">
+          <table class="pricetable">
+            <tr>
+              <td colspan="2"><span id="vlj_legs">KBOS-KRIC</span></td>
+            </tr>
+
+            <tr>
+              <td>Charter Price</td>
+              <td><span id="vlj_subtotal">$16,000.00</span></td>
+            </tr>
+            <tr>
+              <td>FET (7.5%)</td>
+              <td><span id="vlj_tax">$1,000.00</span></td>
+            </tr>
+            <tr>
+              <td>Total Price</td>
+              <td><span id="vlj_total">$17,000.00</span></td>
+            </tr>
+
+          </table>
+        </div>
+        <div></div>
+        <div class="aircraft">
+          <b>VERY LIGHT JET</b><br />
+          Citation Mustang or similar (Seats 5)<br />
+        </div>
+        <div></div>
+        <div align="center">
+          <input class="request_flight" type="button" value="Book Now" />
+        </div>
+      </div>
+    </div>
+
+    <div id="lj" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden">
+      <div class="optiongrid">
+        <div class="planegrid">
+          <div class="prevarrow" id="prev_lj">&lt;</div>
+          <div>
+            <img class="aircraft_image" id="lj_0" src="https://web.flyuberjets.com/static/images/light_exterior.png" />
+            <img class="aircraft_image hidden" id="lj_1" src="https://web.flyuberjets.com/static/images/light_interior.jpg" />
+          </div>
+          <div class="nextarrow" id="next_lj">&gt;</div>
+        </div>
+        <div class="price">
+          <table class="pricetable">
+            <tr>
+              <td colspan="2"><span id="lj_legs"></span></td>
+            </tr>
+
+            <tr>
+              <td>Charter Price</td>
+              <td><span id="lj_subtotal">$16,000.00</span></td>
+            </tr>
+            <tr>
+              <td>FET (7.5%)</td>
+              <td><span id="lj_tax">$1,000.00</span></td>
+            </tr>
+            <tr>
+              <td>Total Price</td>
+              <td><span id="lj_total">$17,000.00</span></td>
+            </tr>
+
+          </table>
+        </div>
+        <div></div>
+        <div class="aircraft">
+          <b>LIGHT JET</b><br />
+          Citation CJ4 or similar (Seats 8)<br />
+        </div>
+        <div></div>
+        <div align="center">
+          <input class="request_flight" type="button" value="Book Now" />
+        </div>
+      </div>
+    </div>
+    <div id="mj" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden">
+      <div class="optiongrid">
+        <div class="planegrid">
+          <div class="prevarrow" id="prev_mj">&lt;</div>
+          <div>
+            <img class="aircraft_image" id="mj_0" src="https://web.flyuberjets.com/static/images/mid_exterior.png" />
+            <img class="aircraft_image hidden" id="mj_1" src="https://web.flyuberjets.com/static/images/mid_interior.jpg" />
+          </div>
+          <div class="nextarrow" id="next_mj">&gt;</div>
+        </div>
+
+        <div class="price">
+          <table class="pricetable">
+            <tr>
+              <td colspan="2"><span id="mj_legs"></span></td>
+            </tr>
+
+            <tr>
+              <td>Charter Price</td>
+              <td><span id="mj_subtotal">$16,000.00</span></td>
+            </tr>
+            <tr>
+              <td>FET (7.5%)</td>
+              <td><span id="mj_tax">$1,000.00</span></td>
+            </tr>
+            <tr>
+              <td>Total Price</td>
+              <td><span id="mj_total">$17,000.00</span></td>
+            </tr>
+
+          </table>
+        </div>
+        <div></div>
+        <div class="aircraft">
+          <b>MID JET</b><br />
+          Citation XL or similar (Seats 8)<br />
+        </div>
+        <div></div>
+
+        <div align="center">
+          <input class="request_flight" type="button" value="Book Now" />
+        </div>
+      </div>
+    </div>
+    <div id="smj" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden">
+      <div class="optiongrid">
+        <div class="planegrid">
+
+          <div class="prevarrow" id="prev_smj">&lt;</div>
+          <div>
+            <img class="aircraft_image" id="smj_0" src="https://web.flyuberjets.com/static/images/supermid_exterior.png" />
+            <img class="aircraft_image hidden" id="smj_1" src="https://web.flyuberjets.com/static/images/supermid_interior.jpg" />
+          </div>
+          <div class="nextarrow" id="next_smj">&gt;</div>
+        </div>
+        <div class="price">
+          <table class="pricetable">
+            <tr>
+              <td colspan="2"><span id="smj_legs"></span></td>
+            </tr>
+
+            <tr>
+              <td>Charter Price</td>
+              <td><span id="smj_subtotal">$16,000.00</span></td>
+            </tr>
+            <tr>
+              <td>FET (7.5%)</td>
+              <td><span id="smj_tax">$1,000.00</span></td>
+            </tr>
+            <tr>
+              <td>Total Price</td>
+              <td><span id="smj_total">$17,000.00</span></td>
+            </tr>
+
+          </table>
+        </div>
+        <div></div>
+
+        <div class="aircraft">
+          <b>SUPER MID JET</b><br />
+          Citation X or Similar (Seats 10)<br />
+        </div>
+        <div></div>
+
+        <div align="center">
+          <input class="request_flight" type="button" value="Book Now" />
+        </div>
+      </div>
+    </div>
+    <div id="hj" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 hidden">
+      <div class="optiongrid">
+        <div class="planegrid">
+
+          <div class="prevarrow" id="prev_hj">&lt;</div>
+          <div>
+            <img class="aircraft_image" id="hj_0" src="https://web.flyuberjets.com/static/images/heavy_exterior.jpg" />
+            <img class="aircraft_image hidden" id="hj_1" src="https://web.flyuberjets.com/static/images/heavy_interor.jpg" />
+          </div>
+          <div class="nextarrow" id="next_hj">&gt;</div>
+        </div>
+        <div class="price">
+          <table class="pricetable">
+            <tr>
+              <td colspan="2"><span id="hj_legs"></span></td>
+            </tr>
+            <tr>
+              <td>Charter Price</td>
+              <td><span id="hj_subtotal">$16,000.00</span></td>
+            </tr>
+            <tr>
+              <td>FET (7.5%)</td>
+              <td><span id="hj_tax">$1,000.00</span></td>
+            </tr>
+            <tr>
+              <td>Total Price</td>
+              <td><span id="hj_total">$17,000.00</span></td>
+            </tr>
+
+          </table>
+        </div>
+        <div></div>
+        <div class="aircraft">
+          <b>HEAVY JET</b><br />
+          Gulfstream GV or Similar (Seats 16)<br />
+        </div>
+        <div></div>
+
+        <div align="center">
+          <input class="request_flight" type="button" value="Book Now" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+
+    <div id="resp" class="hidden">
+    </div>
+
+  </div>
+</div>
+</div>
+<script src="https://web.flyuberjets.com/static/js/jquery-3.4.1.min.js"></script>
+<script src="https://web.flyuberjets.com/static/js/jquery-ui-1.12.1/jquery-ui.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="http://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<script>
+var formatter = new Intl.NumberFormat('en-US', {
+          style: 'currency',
+          currency: 'USD',
+        });
+
+
+$(document).ready(function() {
+        var autocomplete_url='https://web.flyuberjets.com/ajax/autocomplete/airports';
+    var pricing_url ='https://web.flyuberjets.com/api/flight_cost';
+        //var autocomplete_url='http://127.0.0.1:5000/ajax/autocomplete/airports';
+        //var pricing_url='http://127.0.0.1:5000/api/flight_cost';
+        var trip_type=0;
+
+    $("#minus").click(function() {
+
+        if(parseInt($("#pax").val()) >1) {
+                $("#pax").val(parseInt($("#pax").val())-1);
+        }
+
+    });
+    $("#plus").click(function() {
+        if(parseInt($("#pax").val()) < 16) {
+                $("#pax").val(parseInt($("#pax").val())+1);
+        }
+
+
+    });
+
+    $("#next_turbo").click(function() {
+        scrollPics("turbo");
+    });
+    $("#prev_turbo").click(function() {
+        scrollPics("turbo");
+    });
+    $("#next_vlj").click(function() {
+        scrollPics("vlj");
+    });
+    $("#prev_vlj").click(function() {
+        scrollPics("vlj");
+    });
+    $("#next_lj").click(function() {
+        scrollPics("lj");
+    });
+    $("#prev_lj").click(function() {
+        scrollPics("lj");
+    });
+    $("#next_mj").click(function() {
+        scrollPics("mj");
+    });
+    $("#prev_mj").click(function() {
+        scrollPics("mj");
+    });
+    $("#next_smj").click(function() {
+        scrollPics("smj");
+    });
+    $("#prev_smj").click(function() {
+        scrollPics("smj");
+    });
+    $("#next_hj").click(function() {
+        scrollPics("hj");
+    });
+    $("#prev_hj").click(function() {
+        scrollPics("hj");
+    });
+
+        $("#go").click(function() {
+
+
+                //url='/test.json';
+                data={};
+                data['email']=$("#email").val();
+                data['name']=$("#name").val();
+
+                //data['first_name']=$("#first_name").val();
+                //data['last_name']=$("#last_name").val();
+                data['pax']=$("#pax").val();
+                legs=[];
+                if( $("#leg1_departure_code").val() != '' && $("#leg1_arrival_code").val()) {
+                        leg={}
+                        leg['departure_airport']=$("#leg1_departure_code").val();
+                        leg['arrival_airport']=$("#leg1_arrival_code").val();
+                        leg['date_time']=$("#leg1_date").val();
+                        legs.push(leg);
+//                      if($("#trip_type-1").is(":checked")) {
+                        if(trip_type==1) {
+
+                                leg2={}
+                                leg2['departure_airport']=$("#leg1_arrival_code").val();
+                                leg2['arrival_airport']=$("#leg1_departure_code").val();
+                                leg2['date_time']=$("#ret_date").val();
+                                legs.push(leg2);
+                        }
+                }
+//              if($("#trip_type-2").is(":checked")) {
+                if(trip_type==2) {
+                        for(i=2; i <=4; i++) {
+                                if( $("#leg"+i+"_departure_code").val() != '' && $("#leg"+i+"_arrival_code").val()) {
+                                        leg['departure_airport']=$("#leg"+i+"_departure_code").val();
+                                        leg['arrival_airport']=$("#leg"+i+"_arrival_code").val();
+                                        leg['date_time']=$("#leg"+i+"_date").val();
+                                        legs.push(leg);
+                                }
+                        }
+
+                }
+                data['legs']=legs;
+                fetch(pricing_url, {
+                   headers: {
+                              'Accept': 'application/json',
+                              'Content-Type': 'application/json'
+                            },
+                            method: "POST",
+                        body: JSON.stringify(data)
+                  }).then(function(resp) {
+
+                    return resp.json();
+                  }).then(function(data) {
+                            $("#resp").text(JSON.stringify(data));
+
+                            opts=data['options'];
+                            for (i = 0; i < opts.length; i++) {
+                                var opt= opts[i];
+                                  var txt='';
+                                  var section;
+                                  var subtotal;
+                                  var tax;
+                                  var total;
+                                  var timestops;
+
+                                  var img='';
+                                  var description='';
+                                  if(opt["category"]=='Very Light Jet'){
+                                          section=document.querySelector("#vlj");
+                                          subtotal=document.querySelector("#vlj_subtotal");
+                                          tax=document.querySelector("#vlj_tax");
+                                          total=document.querySelector("#vlj_total");
+                                          timestops=document.querySelector("#vlj_legs");
+
+
+                                  } else if(opt["category"]=='Light Jet'){
+                                          section=document.querySelector("#lj");
+                                          subtotal=document.querySelector("#lj_subtotal");
+                                          tax=document.querySelector("#lj_tax");
+                                          total=document.querySelector("#lj_total");
+                                          timestops=document.querySelector("#lj_legs");
+
+                                  } else if(opt["category"]=='Turboprop'){
+                                          section=document.querySelector("#turbo");
+                                          subtotal=document.querySelector("#turbo_subtotal");
+                                          tax=document.querySelector("#turbo_tax");
+                                          total=document.querySelector("#turbo_total");
+                                          timestops=document.querySelector("#turbo_legs");
+
+                                  } else if(opt["category"]=='Mid Jet'){
+                                          section=document.querySelector("#mj");
+                                          subtotal=document.querySelector("#mj_subtotal");
+                                          tax=document.querySelector("#mj_tax");
+                                          total=document.querySelector("#mj_total");
+                                          timestops=document.querySelector("#mj_legs");
+
+                                  } else if(opt["category"]=='Super-Mid Jet'){
+                                          section=document.querySelector("#smj");
+                                          subtotal=document.querySelector("#smj_subtotal");
+                                          tax=document.querySelector("#smj_tax");
+                                          total=document.querySelector("#smj_total");
+                                          timestops=document.querySelector("#smj_legs");
+
+                                  } else if(opt["category"]=='Heavy Jet'){
+                                          section=document.querySelector("#hj");
+                                          subtotal=document.querySelector("#hj_subtotal");
+                                          tax=document.querySelector("#hj_tax");
+                                          total=document.querySelector("#hj_total");
+                                          timestops=document.querySelector("#hj_legs");
+                                  }
+                                  subtotal.innerHTML=formatter.format(opt["cost"])
+                                  tax.innerHTML=formatter.format(opt["cost"]*0)
+                                  total.innerHTML=formatter.format(opt["cost"]*1.075)
+
+                                  //txt=txt+'<span style="padding: 5px; border: 1px solid #444444;">Category:'+opt["category"]+'<br/>';
+                                  //txt=txt+'Cost: '+formatter.format(opt["cost"])+'<br/>';
+                                  var txt='';
+                                  for(l=0; l< opt["legs"].length; l++) {
+                                        var leg=opt["legs"][l];
+                                        txt=txt+'<b>'+leg['departure_airport']+'-'+leg['arrival_airport']+'</b><br/>'
+                                        txt=txt+'Distance: '+Math.round(leg['distance'])+' miles<br/>'
+                                        txt=txt+'Time in Air: '+leg["time_in_air"]+'<br/>';
+
+                                  }
+                                  timestops.innerHTML=txt;
+                                  //txt=txt+ '</span>';
+                                          if (section != null) {
+                                          section.classList.remove("hidden");
+
+
+                                          }
+
+                            }
+                  });
+
+          });
+
+                $("#leg1_departure_airport").autocomplete({
+              source: autocomplete_url,
+              minLength: 2,
+              select: function(event, ui) {
+                  event.preventDefault();
+                  $('#leg1_departure_airport').val(ui.item.label);
+                  $('#leg1_departure_code').val(ui.item.value);
+                  $('#dep1_img').attr('src', ui.item.image);
+                  //alert(ui.item.image);
+                      document.querySelector("#dep1_img").classList.remove("hidden");
+                      $('#dep1_name').attr('src', ui.item.value);
+                  document.querySelector("#dep1_name").classList.remove("hidden");
+                  document.querySelector("#arrowto").classList.remove("hidden");
+                          if(trip_type ==1) {
+                                  document.querySelector("#arrowfrom").classList.remove("hidden");
+              }
+
+
+                  //$("#blurred").css({'background-image': "url('"+ui.item.image+"')"});
+
+              },
+              focus: function(event, ui) {
+                  event.preventDefault();
+                  $('#leg1_departure_airport').val(ui.item.label);
+                  $('#leg1_departure_code').val(ui.item.value);
+                  $('#dep1_img').attr('src', ui.item.image);
+                  //alert(ui.item.image);
+                  $('#dep1_name').attr('src', ui.item.value);
+                  document.querySelector("#dep1_name").classList.remove("hidden");
+                  document.querySelector("#dep1_img").classList.remove("hidden");
+                  document.querySelector("#arrowto").classList.remove("hidden");
+                          if(trip_type ==1) {
+                                  document.querySelector("#arrowfrom").classList.remove("hidden");
+              }
+              },
+              change: function(event, ui) {
+                 if (ui.item==null) {
+                          $('#leg1_departure_airport').val('');
+                          $('#leg1_departure_code').val('');
+                          $( "#leg1_departure_airport" ).focus();
+                              document.querySelector("#dep1_img").classList.add("hidden");
+                              document.querySelector("#dep1_name").classList.add("hidden");
+                          document.querySelector("#arrowto").classList.add("hidden");
+                                  document.querySelector("#arrowfrom").classList.add("hidden");
+
+
+                 }
+              }
+
+            });
+                $("#leg1_arrival_airport").autocomplete({
+                      source: autocomplete_url,
+                      minLength: 2,
+                      select: function(event, ui) {
+                          event.preventDefault();
+                          $('#leg1_arrival_airport').val(ui.item.label);
+                          $('#leg1_arrival_code').val(ui.item.value);
+                          $('#arr1_img').attr('src', ui.item.image);
+                              document.querySelector("#arr1_img").classList.remove("hidden");
+                          $('#arr1_name').attr('src', ui.item.value);
+                          document.querySelector("#arr1_name").classList.remove("hidden");
+
+                      },
+                      focus: function(event, ui) {
+                          event.preventDefault();
+                          $('#leg1_arrival_airport').val(ui.item.label);
+                          $('#leg1_arrival_code').val(ui.item.value);
+                          $('#arr1_img').attr('src', ui.item.image);
+                              document.querySelector("#arr1_img").classList.remove("hidden");
+                          $('#arr1_name').attr('src', ui.item.value);
+                          document.querySelector("#arr1_name").classList.remove("hidden");
+
+                      },
+                      change: function(event, ui) {
+                         if (ui.item==null) {
+                                  $('#leg1_arrival_airport').val('');
+                                  $('#leg1_arrival_code').val('');
+                                  $( "#leg1_arrival_airport" ).focus();
+                                      document.querySelector("#arr1_img").classList.add("hidden");
+                                      document.querySelector("#arr1_name").classList.add("hidden");
+
+                         }
+                      }
+                    });
+
+                $("#leg2_departure_airport").autocomplete({
+                      source: autocomplete_url,
+                      minLength: 2,
+                      select: function(event, ui) {
+                          event.preventDefault();
+                          $('#leg2_departure_airport').val(ui.item.label);
+                          $('#leg2_departure_code').val(ui.item.value);
+                      },
+                      focus: function(event, ui) {
+                          event.preventDefault();
+                          $('#leg2_departure_airport').val(ui.item.label);
+                          $('#leg2_departure_code').val(ui.item.value);
+
+                      },
+                      change: function(event, ui) {
+                         if (ui.item==null) {
+                                  $('#leg2_departure_airport').val('');
+                                  $('#leg2_departure_code').val('');
+                                  $( "#leg2_departure_airport" ).focus();
+                         }
+                      }
+
+                    });
+                        $("#leg2_arrival_airport").autocomplete({
+                              source: autocomplete_url,
+                              minLength: 2,
+                              select: function(event, ui) {
+                                  event.preventDefault();
+                                  $('#leg2_arrival_airport').val(ui.item.label);
+                                  $('#leg2_arrival_code').val(ui.item.value);
+                              },
+                              focus: function(event, ui) {
+                                  event.preventDefault();
+                                  $('#leg2_arrival_airport').val(ui.item.label);
+                                  $('#leg2_arrival_code').val(ui.item.value);
+
+                              },
+                              change: function(event, ui) {
+                                 if (ui.item==null) {
+                                          $('#leg2_arrival_airport').val('');
+                                          $('#leg2_arrival_code').val('');
+                                          $( "#leg2_arrival_airport" ).focus();
+                                 }
+                              }
+                            });
+
+                        $("#leg3_departure_airport").autocomplete({
+                              source: autocomplete_url,
+                              minLength: 2,
+                              select: function(event, ui) {
+                                  event.preventDefault();
+                                  $('#leg3_departure_airport').val(ui.item.label);
+                                  $('#leg3_departure_code').val(ui.item.value);
+                              },
+                              focus: function(event, ui) {
+                                  event.preventDefault();
+                                  $('#leg3_departure_airport').val(ui.item.label);
+                                  $('#leg3_departure_code').val(ui.item.value);
+
+                              },
+                              change: function(event, ui) {
+                                 if (ui.item==null) {
+                                          $('#leg3_departure_airport').val('');
+                                          $('#leg3_departure_code').val('');
+                                          $( "#leg3_departure_airport" ).focus();
+                                 }
+                              }
+
+                            });
+                                $("#leg3_arrival_airport").autocomplete({
+                                      source: autocomplete_url,
+                                      minLength: 2,
+                                      select: function(event, ui) {
+                                          event.preventDefault();
+                                          $('#leg3_arrival_airport').val(ui.item.label);
+                                          $('#leg3_arrival_code').val(ui.item.value);
+                                      },
+                                      focus: function(event, ui) {
+                                          event.preventDefault();
+                                          $('#leg3_arrival_airport').val(ui.item.label);
+                                          $('#leg3_arrival_code').val(ui.item.value);
+
+                                      },
+                                      change: function(event, ui) {
+                                         if (ui.item==null) {
+                                                  $('#leg3_arrival_airport').val('');
+                                                  $('#leg3_arrival_code').val('');
+                                                  $( "#leg3_arrival_airport" ).focus();
+                                         }
+                                      }
+                                    });
+                                $("#leg4_departure_airport").autocomplete({
+                                      source: autocomplete_url,
+                                      minLength: 2,
+                                      select: function(event, ui) {
+                                          event.preventDefault();
+                                          $('#leg4_departure_airport').val(ui.item.label);
+                                          $('#leg4_departure_code').val(ui.item.value);
+                                      },
+                                      focus: function(event, ui) {
+                                          event.preventDefault();
+                                          $('#leg4_departure_airport').val(ui.item.label);
+                                          $('#leg4_departure_code').val(ui.item.value);
+
+                                      },
+                                      change: function(event, ui) {
+                                         if (ui.item==null) {
+                                                  $('#leg4_departure_airport').val('');
+                                                  $('#leg4_departure_code').val('');
+                                                  $( "#leg4_departure_airport" ).focus();
+                                         }
+                                      }
+
+                                    });
+                                        $("#leg4_arrival_airport").autocomplete({
+                                              source: autocomplete_url,
+                                              minLength: 2,
+                                              select: function(event, ui) {
+                                                  event.preventDefault();
+                                                  $('#leg4_arrival_airport').val(ui.item.label);
+                                                  $('#leg4_arrival_code').val(ui.item.value);
+                                              },
+                                              focus: function(event, ui) {
+                                                  event.preventDefault();
+                                                  $('#leg4_arrival_airport').val(ui.item.label);
+                                                  $('#leg4_arrival_code').val(ui.item.value);
+
+                                              },
+                                              change: function(event, ui) {
+                                                 if (ui.item==null) {
+                                                          $('#leg4_arrival_airport').val('');
+                                                          $('#leg4_arrival_code').val('');
+                                                          $( "#leg4_arrival_airport" ).focus();
+                                                 }
+                                              }
+                                            });
+
+      $( "#leg1_date" ).datepicker({
+
+          onSelect: function(selected) {
+
+            if($("#leg2_date").val !='') {
+                                $("#leg2_date").datepicker("option","minDate", selected);
+            }
+          },
+          minDate: 0
+      }
+
+      );
+
+      $( "#leg2_date" ).datepicker({
+          /*onSelect: function(selected) {
+            $("#leg1_date").datepicker("option","maxDate", selected)
+          }*/
+      });
+        $( "#ret_date" ).datepicker({
+            onSelect: function(selected) {
+              $("#ret_date").datepicker("option","maxDate", selected)
+            }
+        });
+        $( "#leg3_date" ).datepicker({
+            /*onSelect: function(selected) {
+              $("#leg1_date").datepicker("option","maxDate", selected)
+            }*/
+        });
+        $( "#leg4_date" ).datepicker({
+            onSelect: function(selected) {
+              $("#leg1_date").datepicker("option","maxDate", selected)
+            }
+        });
+
+         $("#trip_type-0").click(function() {
+                        trip_type=0;
+                        document.querySelector("#tt0").classList.add("trip_type_active");
+                        document.querySelector("#tt1").classList.remove("trip_type_active");
+                        document.querySelector("#tt2").classList.remove("trip_type_active");
+
+                        document.querySelector("#arrowfrom").classList.add("hidden");
+                        document.querySelector("#retdate").classList.add("hidden");
+                /*document.querySelector("#leg2").classList.add("hidden");
+                document.querySelector("#leg3").classList.add("hidden");
+                document.querySelector("#leg4").classList.add("hidden");*/
+                document.querySelector("#leg2_dep").classList.add("hidden");
+                document.querySelector("#leg3_dep").classList.add("hidden");
+                document.querySelector("#leg4_dep").classList.add("hidden");
+                document.querySelector("#leg2_arr").classList.add("hidden");
+                document.querySelector("#leg3_arr").classList.add("hidden");
+                document.querySelector("#leg4_arr").classList.add("hidden");
+                document.querySelector("#leg2_dt").classList.add("hidden");
+                document.querySelector("#leg3_dt").classList.add("hidden");
+                document.querySelector("#leg4_dt").classList.add("hidden");
+
+                document.querySelector("#leg2label").classList.add("hidden");
+                document.querySelector("#leg3label").classList.add("hidden");
+                document.querySelector("#leg4label").classList.add("hidden");
+                document.querySelector("#leg1label").classList.add("hidden");
+                //document.querySelector("#spacelabel").classList.add("hidden");
+
+         });
+         $("#trip_type-1").click(function() {
+                        trip_type=1;
+                        document.querySelector("#tt1").classList.add("trip_type_active");
+                        document.querySelector("#tt0").classList.remove("trip_type_active");
+                        document.querySelector("#tt2").classList.remove("trip_type_active");
+
+                        document.querySelector("#retdate").classList.remove("hidden");
+                        //document.querySelector("#arrowfrom").classList.remove("hidden");
+                /*document.querySelector("#leg2").classList.add("hidden");
+                document.querySelector("#leg3").classList.add("hidden");
+                document.querySelector("#leg4").classList.add("hidden");*/
+                document.querySelector("#leg2label").classList.add("hidden");
+                document.querySelector("#leg3label").classList.add("hidden");
+                document.querySelector("#leg4label").classList.add("hidden");
+                document.querySelector("#leg1label").classList.add("hidden");
+                //document.querySelector("#spacelabel").classList.add("hidden");
+                document.querySelector("#leg2_dep").classList.add("hidden");
+                document.querySelector("#leg3_dep").classList.add("hidden");
+                document.querySelector("#leg4_dep").classList.add("hidden");
+                document.querySelector("#leg2_arr").classList.add("hidden");
+                document.querySelector("#leg3_arr").classList.add("hidden");
+                document.querySelector("#leg4_arr").classList.add("hidden");
+                document.querySelector("#leg2_dt").classList.add("hidden");
+                document.querySelector("#leg3_dt").classList.add("hidden");
+                document.querySelector("#leg4_dt").classList.add("hidden");
+
+         });
+         $("#trip_type-2").click(function() {
+                        trip_type=2;
+                        document.querySelector("#tt2").classList.add("trip_type_active");
+                        document.querySelector("#tt1").classList.remove("trip_type_active");
+                        document.querySelector("#tt0").classList.remove("trip_type_active");
+
+                        document.querySelector("#arrowfrom").classList.add("hidden");
+                        document.querySelector("#retdate").classList.add("hidden");
+                /*document.querySelector("#leg2").classList.remove("hidden");
+                document.querySelector("#leg3").classList.remove("hidden");
+                document.querySelector("#leg4").classList.remove("hidden");*/
+                document.querySelector("#leg1label").classList.remove("hidden");
+                document.querySelector("#leg2label").classList.remove("hidden");
+                document.querySelector("#leg3label").classList.remove("hidden");
+                document.querySelector("#leg4label").classList.remove("hidden");
+                //document.querySelector("#spacelabel").classList.remove("hidden");
+                document.querySelector("#leg2_dep").classList.remove("hidden");
+                document.querySelector("#leg3_dep").classList.remove("hidden");
+                document.querySelector("#leg4_dep").classList.remove("hidden");
+                document.querySelector("#leg2_arr").classList.remove("hidden");
+                document.querySelector("#leg3_arr").classList.remove("hidden");
+                document.querySelector("#leg4_arr").classList.remove("hidden");
+                document.querySelector("#leg2_dt").classList.remove("hidden");
+                document.querySelector("#leg3_dt").classList.remove("hidden");
+                document.querySelector("#leg4_dt").classList.remove("hidden");
+
+
+         });
+
+        });
+        var scrollPics = function(acType) {
+                var zero='#'+acType+'_0';
+                var one='#'+acType+'_1';
+
+//todo checking if it is hidden
+                if($(zero).is(":visible")) {
+                        document.querySelector(one).classList.remove("hidden");
+                        document.querySelector(zero).classList.add("hidden");
+                } else {
+                        document.querySelector(zero).classList.remove("hidden");
+                        document.querySelector(one).classList.add("hidden");
+                }
+
+        }
+
+
+        var showHideLegs = function() {
+                //alert($("#trip_type-0").is(":checked"));
+
+                //alert($("#trip_type-1").is(":checked"));
+                //alert($("#trip_type-2").is(":checked"));
+
+                if ($("#trip_type-1").is(":checked")) {
+                        document.querySelector("#retdate").classList.remove("hidden");
+                        document.querySelector("#arrowfrom").classList.remove("hidden");
+
+                } else {
+                        document.querySelector("#arrowfrom").classList.add("hidden");
+
+                        document.querySelector("#retdate").classList.add("hidden");
+            }
+            if ($("#trip_type-2").is(":checked")) {
+                document.querySelector("#leg2").classList.remove("hidden");
+                document.querySelector("#leg3").classList.remove("hidden");
+                document.querySelector("#leg4").classList.remove("hidden");
+                document.querySelector("#leg1label").classList.remove("hidden");
+                document.querySelector("#leg2label").classList.remove("hidden");
+                document.querySelector("#leg3label").classList.remove("hidden");
+                document.querySelector("#leg4label").classList.remove("hidden");
+
+
+            } else {
+                document.querySelector("#leg2").classList.add("hidden");
+                document.querySelector("#leg3").classList.add("hidden");
+                document.querySelector("#leg4").classList.add("hidden");
+                document.querySelector("#leg2label").classList.add("hidden");
+                document.querySelector("#leg3label").classList.add("hidden");
+                document.querySelector("#leg4label").classList.add("hidden");
+                document.querySelector("#leg1label").classList.add("hidden");
+
+            }
+
+
+
+
+        };
+
+</script>
+
+</body>
+</html>
